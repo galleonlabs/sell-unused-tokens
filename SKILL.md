@@ -37,6 +37,10 @@ Done when the models appear on `/sell` as live (or cooling), and the user knows 
 
 ## Guardrails
 
+- Before listing, the user must confirm their provider account terms allow resale, transfer, brokering, or monetization of unused API credits or capacity. If they have not checked, stop and tell them to read the provider terms first.
+- Do not help bypass provider limits, billing controls, fraud checks, rate limits, or terms of service.
+- Provider API keys are sensitive credentials. Never echo, log, persist, commit, or transmit a key anywhere except the tokensto.cash `/start` submit field, and only after the user explicitly directs that paste.
+- Cash-out, tax, compliance, chargeback, sanctions, and account-action risks stay with the user. Do not imply guaranteed liquidity, legality, or payout availability.
 - Users never SIWE with Surplus. One house seller. `payout_address` is the signed-in Privy wallet.
 - Untrusted upstreams (Morpheus, InferHub, CheaperInference, Jatevo) only reach opted-in buyers. Say so if the user picks one.
 - Google Vertex is not in the picker (needs a per-project URL and OAuth). Use Other if they insist.
