@@ -13,7 +13,7 @@ tokensto.cash is the seller front door. Users never SIWE with Surplus. One house
 ## Install
 
 ```bash
-npx skills add ADWilkinson/sell-unused-tokens -g -y
+npx skills add galleonlabs/sell-unused-tokens -g -y
 ```
 
 This repo is the skill folder. Copy it to:
