@@ -14,7 +14,7 @@ Untrusted upstreams (Morpheus, InferHub, CheaperInference, Jatevo) only route to
 
 ## Pricing
 
-The repricer keeps each listing cheapest among healthy, trusted competitors, floored at the user's cost basis. Dead offers at the top of the book do not count. Text models use `cost_multiplier` (per-token pricing is retired on Surplus).
+The repricer keeps each listing just under the cheapest healthy, trusted competitor it can beat, floored at the user's cost basis. Dead offers at the top of the book do not count, and a quote at or below the floor is ignored rather than chased: the listing undercuts the next competitor above the floor. Text models use `cost_multiplier` (per-token pricing is retired on Surplus).
 
 Client posts one model at a time. Server accepts 1–8. Always read the live book before create.
 

@@ -1,10 +1,65 @@
 # sell-unused-tokens
 
-Agent skill for [tokensto.cash](https://tokensto.cash): list leftover LLM API capacity on Surplus Intelligence and cash out USDC.
+Agent skill for [tokensto.cash](https://tokensto.cash): list leftover LLM API credits, get paid USDC per request on Base, cash out to fiat.
 
-Live skill page: https://tokensto.cash/skills/sell-unused-tokens  
-Raw: https://tokensto.cash/skills/sell-unused-tokens/SKILL.md
+[tokensto.cash](https://tokensto.cash) · [Skill page](https://tokensto.cash/skills/sell-unused-tokens) · [agentskill.sh](https://agentskill.sh/@adwilkinson/sell-unused-tokens)
 
-Install by copying this folder to `~/.claude/skills/sell-unused-tokens` or `~/.codex/skills/sell-unused-tokens`.
+![tokensto.cash — sell spare AI tokens for cash](https://tokensto.cash/og.png)
 
-Direct cash-out rails: Revolut, Monzo, Chime, Zelle. Venmo, Cash App, Wise, PayPal after a one-time USDCtoFiat Verify registration (desktop Chrome).
+Prepaid and included LLM allowances expire unused. This skill walks Claude, Codex, Cursor, or any [Agent Skills](https://agentskills.io) client through listing that capacity on [Surplus Intelligence](https://www.surplusintelligence.ai) through tokensto.cash.
+
+tokensto.cash is the seller front door. Users never SIWE with Surplus. One house seller. Payouts go to the signed-in Privy wallet.
+
+## Install
+
+```bash
+npx skills add ADWilkinson/sell-unused-tokens -g -y
+```
+
+This repo is the skill folder. Copy it to:
+
+```text
+~/.claude/skills/sell-unused-tokens
+~/.codex/skills/sell-unused-tokens
+~/.cursor/skills/sell-unused-tokens
+```
+
+On [agentskill.sh](https://agentskill.sh/@adwilkinson/sell-unused-tokens):
+
+```text
+/learn @adwilkinson/sell-unused-tokens
+```
+
+## What the agent does
+
+1. Opens https://tokensto.cash/start and signs in (Privy).
+2. Stops if the user has not confirmed their provider terms allow monetizing unused capacity.
+3. Pastes the key into `/start` only — never echoes, logs, or stores it.
+4. Lists recommended text models, one per request, floored at the cost basis.
+5. Points at `/sell` for live listings and `/cash-out` for Create / Orders / Send.
+
+Raw instructions: [`SKILL.md`](./SKILL.md).
+
+## Security
+
+This package has no scripts. The agent must never echo, log, commit, or transmit a provider key except into the tokensto.cash `/start` field after the user says to paste it. Surplus stores the key encrypted per listing. tokensto.cash does not persist it.
+
+Read [SECURITY.md](./SECURITY.md).
+
+## Cash out
+
+- Direct: Revolut, Monzo, Chime, Zelle.
+- After a one-time USDCtoFiat Verify registration (desktop Chrome, extension 0.2.1+): Venmo, Cash App, Wise, PayPal.
+- Mercado Pago stays out.
+- Orders close with a full withdraw. No top-up.
+- Send is Base USDC.
+
+Listing is free. Settlement is USDC on Base per request. Cash-out, tax, and provider-account risk stay with the user.
+
+## Compatibility
+
+Works in Claude Code, Codex, Cursor, and any client that loads [Agent Skills](https://agentskills.io/specification). Needs network access to tokensto.cash and a browser for the user to sign in.
+
+## License
+
+[MIT](./LICENSE). Operator: [Galleon Labs](https://galleonlabs.io). Support: gm@galleonlabs.io.
