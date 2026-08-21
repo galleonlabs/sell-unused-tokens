@@ -2,7 +2,7 @@
 
 Agent skill for [tokensto.cash](https://tokensto.cash): list leftover LLM API credits, get paid USDC per request on Base, cash out to fiat.
 
-[tokensto.cash](https://tokensto.cash) · [Skill page](https://tokensto.cash/skills/sell-unused-tokens) · [agentskill.sh](https://agentskill.sh/@adwilkinson/sell-unused-tokens)
+[tokensto.cash](https://tokensto.cash) · [Skill page](https://tokensto.cash/skills/sell-unused-tokens)
 
 ![tokensto.cash — sell spare AI tokens for cash](https://tokensto.cash/og.png)
 
@@ -13,7 +13,7 @@ tokensto.cash is the seller front door. Users never SIWE with Surplus. One house
 ## Install
 
 ```bash
-npx skills add galleonlabs/sell-unused-tokens -g -y
+npm exec --package=skills@1.5.23 -- skills add galleonlabs/sell-unused-tokens -g -y
 ```
 
 This repo is the skill folder. Copy it to:
@@ -24,11 +24,7 @@ This repo is the skill folder. Copy it to:
 ~/.cursor/skills/sell-unused-tokens
 ```
 
-On [agentskill.sh](https://agentskill.sh/@adwilkinson/sell-unused-tokens):
-
-```text
-/learn @adwilkinson/sell-unused-tokens
-```
+Pin the `skills` installer. This workflow handles provider API keys and cash-out rails; do not resolve `npx skills` unpinned.
 
 ## What the agent does
 
