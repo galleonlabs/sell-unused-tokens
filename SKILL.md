@@ -2,10 +2,10 @@
 name: sell-unused-tokens
 description: List leftover LLM API credits on tokensto.cash and cash out USDC. Use when the user wants to sell unused OpenRouter, OpenAI, Anthropic, Gemini, Venice, Capminal, DeepSeek, Groq, Mistral, or other provider credits, recover prepaid or included API capacity for cash, cash out tokensto.cash USDC, or list on Surplus Intelligence through tokensto.cash.
 license: MIT
-compatibility: Requires a browser and a tokensto.cash account (Privy wallet). Network access to https://tokensto.cash. No local scripts.
+compatibility: Requires a browser and a tokensto.cash account (Privy wallet). Network access to https://tokensto.cash. The procedure runs no local scripts.
 metadata:
   author: Galleon Labs
-  version: "1.1.0"
+  version: "1.1.1"
   homepage: https://tokensto.cash
 ---
 

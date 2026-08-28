@@ -40,7 +40,7 @@ Raw instructions: [`SKILL.md`](./SKILL.md).
 
 ## Security
 
-This package has no scripts. The agent must never echo, log, commit, or transmit a provider key except into the tokensto.cash `/start` field after the user says to paste it. Surplus stores the key encrypted per listing. tokensto.cash does not persist it.
+The skill runs nothing on your machine. The one executable this package ships is `scripts/validate.sh`, the maintainer's CI check, which the skill never invokes. The agent must never echo, log, commit, or transmit a provider key except into the tokensto.cash `/start` field after the user says to paste it. Surplus stores the key encrypted per listing. tokensto.cash does not persist it.
 
 Read [SECURITY.md](./SECURITY.md).
 
