@@ -1,6 +1,6 @@
 # sell-unused-tokens
 
-Agent skill for [tokensto.cash](https://tokensto.cash): list leftover LLM API credits, get paid USDC per request on Base, cash out to fiat.
+Agent skill for [tokensto.cash](https://tokensto.cash): list leftover LLM API credits, earn USDC per request, receive batched payouts on Base, cash out to fiat.
 
 [tokensto.cash](https://tokensto.cash) · [Skill page](https://tokensto.cash/skills/sell-unused-tokens)
 
@@ -50,9 +50,9 @@ Read [SECURITY.md](./SECURITY.md).
 - After a one-time USDCtoFiat Verify registration (desktop Chrome, extension 0.2.1+): Venmo, Cash App, Wise, PayPal.
 - Mercado Pago stays out.
 - Orders close with a full withdraw. No top-up.
-- Send is Base USDC.
+- Send is Base USDC. Sell and cash out have no tokensto.cash fee; Send costs 0.5% of the amount entered.
 
-Listing is free. Settlement is USDC on Base per request. Cash-out, tax, and provider-account risk stay with the user.
+Listing is free. Earnings accrue per request; Surplus batches USDC to the signed-in wallet at $5 or after 72 hours. Cash-out, tax, and provider-account risk stay with the user.
 
 ## Compatibility
 
