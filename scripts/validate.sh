@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 # Required check: the published skill stays installable, markdown links respond,
-# and the README installer pin is named. No repository secrets. No network
+# every executable the install copies onto a user's machine is declared and
+# disclosed, and the README installer pin is named. No repository secrets. No network
 # except npm registry and the extracted public URLs.
 set -euo pipefail
 cd "$(dirname "$0")/.."
@@ -167,6 +168,86 @@ sys.exit(1 if failed else 0)
 PY
 }
 
+payload() {
+  python3 - <<'PY'
+import subprocess
+import sys
+from pathlib import Path
+
+ALLOWLIST = Path("scripts/payload-executables.txt")
+DISCLOSURE = Path("SECURITY.md")
+
+
+def declared() -> set[str]:
+    if not ALLOWLIST.is_file():
+        print(f"{ALLOWLIST}: missing", file=sys.stderr)
+        sys.exit(1)
+    paths: set[str] = set()
+    for raw in ALLOWLIST.read_text(encoding="utf-8").splitlines():
+        line = raw.strip()
+        if line and not line.startswith("#"):
+            paths.add(line)
+    return paths
+
+
+def shipped() -> set[str]:
+    """Files an install copies onto a user's machine that carry executable code.
+    The installer copies the repository folder minus .git, so the tracked set is
+    the payload."""
+    listing = subprocess.run(
+        ["git", "ls-files", "-s"],
+        check=True,
+        capture_output=True,
+        text=True,
+    ).stdout.splitlines()
+
+    found: set[str] = set()
+    for row in listing:
+        meta, path = row.split("\t", 1)
+        mode = meta.split()[0]
+        if mode == "120000":
+            continue
+        if mode == "100755":
+            found.add(path)
+            continue
+        try:
+            with open(path, "rb") as handle:
+                if handle.read(2) == b"#!":
+                    found.add(path)
+        except OSError:
+            continue
+    return found
+
+
+allowed = declared()
+actual = shipped()
+failed = False
+
+for path in sorted(actual - allowed):
+    print(f"FAIL  {path} ships executable code but {ALLOWLIST} does not declare it", file=sys.stderr)
+    failed = True
+
+for path in sorted(allowed - actual):
+    print(f"FAIL  {ALLOWLIST} declares {path}, which no longer ships", file=sys.stderr)
+    failed = True
+
+if not DISCLOSURE.is_file():
+    print(f"{DISCLOSURE}: missing", file=sys.stderr)
+    sys.exit(1)
+
+disclosure = DISCLOSURE.read_text(encoding="utf-8")
+for path in sorted(allowed & actual):
+    if path in disclosure:
+        print(f"OK    {path}  (declared, disclosed in {DISCLOSURE})")
+    else:
+        print(f"FAIL  {path} ships but {DISCLOSURE} does not name it", file=sys.stderr)
+        failed = True
+
+print(f"payload carries {len(actual)} executable file(s); every one must be declared and disclosed")
+sys.exit(1 if failed else 0)
+PY
+}
+
 pin_freshness() {
   local pin latest
   pin=$(readme_pin)
@@ -186,14 +267,16 @@ cmd=${1:-all}
 case "$cmd" in
   installability) installability ;;
   links) links ;;
+  payload) payload ;;
   pin) pin_freshness ;;
   all)
     installability
     links
+    payload
     pin_freshness
     ;;
   *)
-    echo "usage: $0 [all|installability|links|pin]" >&2
+    echo "usage: $0 [all|installability|links|payload|pin]" >&2
     exit 2
     ;;
 esac

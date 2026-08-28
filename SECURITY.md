@@ -1,6 +1,12 @@
 # Security
 
-This repository is a procedure skill. It contains no scripts, no binaries, and no code that transmits credentials.
+This repository is a procedure skill. The workflow is browser and prose only: no file here runs as part of the skill, and nothing in this repository reads, stores, or transmits a credential.
+
+## What the install copies
+
+Installing copies the repository folder, so the maintainer's CI check `scripts/validate.sh` lands in your skills directory next to `SKILL.md`. The skill never invokes it and you never need to run it. It takes no input, touches no credential, and only checks installability, link health, and the installer pin against public URLs and the npm registry. It is the only executable this package ships.
+
+`scripts/payload-executables.txt` declares that set, and the `validate` workflow fails if an undeclared executable appears or if this file stops naming one. The claim above cannot drift without breaking the required check.
 
 ## Provider keys
 

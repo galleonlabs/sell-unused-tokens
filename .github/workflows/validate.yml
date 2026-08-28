@@ -32,5 +32,8 @@ jobs:
       - name: Link health
         run: bash scripts/validate.sh links
 
+      - name: Payload disclosure
+        run: bash scripts/validate.sh payload
+
       - name: Pin freshness
         run: bash scripts/validate.sh pin
