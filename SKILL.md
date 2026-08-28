@@ -5,7 +5,7 @@ license: MIT
 compatibility: Requires a browser and a tokensto.cash account (Privy wallet). Network access to https://tokensto.cash. The procedure runs no local scripts.
 metadata:
   author: Galleon Labs
-  version: "1.1.1"
+  version: "1.2.0"
   homepage: https://tokensto.cash
 ---
 
@@ -22,13 +22,13 @@ Done when the models appear on `/sell` as live (or cooling), and the user knows 
 - Buying inference — that is the Surplus buyer side.
 - Opening a Surplus seller account. Users never SIWE with Surplus.
 - The user has not confirmed their provider terms allow resale, transfer, brokering, or monetization of unused API credits or capacity. Stop and send them to the provider terms first.
-- Google Vertex without an OpenAI-compatible URL. Vertex is not in the picker.
+- Google Vertex without a URL already supported by Surplus. Vertex is not in the picker.
 
 ## Do this
 
 1. Open https://tokensto.cash/start and sign in (Privy wallet). Evidence: the connect-key screen, not a marketing page.
 2. Confirm the user has checked the provider account terms. If they have not, stop.
-3. Pick the provider that owns the leftover credits. Featured: Venice, Capminal, OpenRouter, OpenAI, Anthropic, Gemini, DeepSeek, Groq, Mistral. More sits behind "More". Capminal daily $CAPU credit is **Included**. Use **Other** only for an OpenAI-compatible URL Surplus does not list.
+3. Pick the provider that owns the leftover credits. Featured: Venice, Capminal, OpenRouter, OpenAI, Anthropic, Gemini, DeepSeek, Groq, Mistral. More sits behind "More". Capminal daily $CAPU credit is **Included**. Use **Other** only for a URL Surplus already supports; OpenAI compatibility alone is not enough.
 4. Paste the key into the field. **Never echo, log, commit, or store it.** Surplus probes it and keeps it encrypted per listing. tokensto.cash does not persist keys.
 5. Wait for the probe. Evidence: a model list with market rows. If it 504s, retry once; Surplus timeouts surface as a clear message.
 6. Keep the recommended text models unless the user named others. Client lists **one model per request** so the ticks stay honest.
@@ -47,7 +47,8 @@ Done when the models appear on `/sell` as live (or cooling), and the user knows 
 - Mercado Pago stays out.
 - Orders close with a full withdraw only. No top-up.
 - Send is Base USDC to an address.
-- Earnings are inbound USDC from Surplus relayers only. Other inbound is balance, not earned.
+- Sell and cash out with no tokensto.cash fees. Send costs 0.5% of the amount entered; the recipient receives the rest.
+- Accrued and in-flight earnings come from Surplus. Ready and received earnings are inbound USDC from learned Surplus relayers; other inbound is balance, not earned.
 
 ## Guardrails
 
@@ -55,7 +56,7 @@ Done when the models appear on `/sell` as live (or cooling), and the user knows 
 - Provider API keys are sensitive credentials. Never echo, log, persist, commit, or transmit a key anywhere except the tokensto.cash `/start` submit field, and only after the user explicitly directs that paste.
 - Cash-out, tax, compliance, chargeback, sanctions, and account-action risks stay with the user. Do not imply guaranteed liquidity, legality, or payout availability.
 - Users never SIWE with Surplus. One house seller. `payout_address` is the signed-in Privy wallet.
-- Untrusted upstreams (Morpheus, InferHub, CheaperInference, Jatevo) only reach opted-in buyers. Say so if the user picks one.
+- Untrusted upstreams (Morpheus, Ollama Cloud, CheaperInference, Jatevo) only reach opted-in buyers. Say so if the user picks one.
 - Do not invent rails, APIs, or env values. Support: gm@galleonlabs.io.
 
 ## If something fails

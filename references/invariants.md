@@ -10,7 +10,7 @@ tokensto.cash holds one Surplus seller identity. Users never SIWE with Surplus a
 
 The provider key is sent once to Surplus. Surplus probes it, stores it encrypted per listing, and pays for every request. This app never persists the key.
 
-Untrusted upstreams (Morpheus, InferHub, CheaperInference, Jatevo) only route to buyers who opted in. Trusted-only is Surplus's default for buyers.
+Untrusted upstreams (Morpheus, Ollama Cloud, CheaperInference, Jatevo) only route to buyers who opted in. Trusted-only is Surplus's default for buyers.
 
 ## Pricing
 
@@ -20,13 +20,15 @@ Client posts one model at a time. Server accepts 1–8. Always read the live boo
 
 ## Money
 
-`payout_address` is always the signed-in Privy wallet. Surplus settles USDC on Base per request.
+`payout_address` is always the signed-in Privy wallet. Earnings accrue per request; Surplus batches USDC payouts on Base at $5 or after 72 hours.
 
-Earnings = inbound USDC from learned Surplus relayers only. Do not count all inbound as earned.
+Accrued and in-flight earnings come from Surplus's per-recipient payout snapshot. Ready and received earnings come from inbound USDC sent by learned Surplus relayers. Do not count all inbound as earned.
 
 Cash-out: Revolut, Monzo, Chime, Zelle direct. Venmo, Cash App, Wise, PayPal after a one-time in-app Verify registration (`useVerifyRegistration`, `@usdctofiat/offramp/extension`, extension 0.2.1+). Same handshake as usdctofiat.xyz. Mercado Pago stays out.
 
 Deposits on Orders are one-off: full withdraw, never top-up. Send is Base USDC.
+
+There is no tokensto.cash fee to list or cash out. A fee-bearing Send transfers the destination amount and 0.5% Galleon fee in one atomic wallet batch. The fee rounds down to USDC precision.
 
 ## Support
 
