@@ -5,7 +5,7 @@ license: MIT
 compatibility: Requires a browser and a tokensto.cash account (Privy wallet). Network access to https://tokensto.cash. The procedure runs no local scripts.
 metadata:
   author: Galleon Labs
-  version: "1.2.0"
+  version: "1.3.0"
   homepage: https://tokensto.cash
 ---
 
@@ -36,6 +36,7 @@ Done when the models appear on `/sell` as live (or cooling), and the user knows 
    - **Included** (subscription/stake) — floor 0.02×
    - **Leftover** (credits sitting idle) — floor 0.05×
    - **At cost** (pay-as-you-go) — floor 1.0×, never below list
+   Optional leftover hours (e.g. 11:00 PM–8:00 AM) if their own apps need the key during the day.
 8. Submit. Evidence: each selected model ticks ok, then `/sell` shows the listings. Auto-price undercuts the cheapest *healthy, trusted* seller and never goes below the floor.
 
 ## Cash out

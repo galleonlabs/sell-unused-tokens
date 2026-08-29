@@ -46,6 +46,7 @@ DELETE only flips an offer to inactive. Relisting the same key and model can ret
 | Mercado Pago | Out. Do not offer it. |
 | Want to add funds to an existing order | No top-up. Close with a full withdraw, then create a new order. |
 | Inbound USDC that is not earnings | Other inbound is balance. Received earnings are Surplus relayer transfers only. |
+| "That address is not mine" / wants a different payout address | It is the user's own Privy wallet, made at sign-in. `payout_address` is always the signed-in wallet, so there is no field to change it. Money leaves through Cash out or Send. |
 
 ## Support
 

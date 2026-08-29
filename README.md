@@ -2,7 +2,7 @@
 
 Agent skill for [tokensto.cash](https://tokensto.cash): list leftover LLM API credits, earn USDC per request, receive batched payouts on Base, cash out to fiat.
 
-[tokensto.cash](https://tokensto.cash) · [Skill page](https://tokensto.cash/skills/sell-unused-tokens)
+[tokensto.cash](https://tokensto.cash) · [Skill page](https://tokensto.cash/skills/sell-unused-tokens) · [Spec](https://agentskills.io/specification)
 
 ![tokensto.cash — sell spare AI tokens for cash](https://tokensto.cash/og.png)
 
@@ -11,6 +11,8 @@ Prepaid and included LLM allowances expire unused. This skill walks Claude, Code
 tokensto.cash is the seller front door. Users never SIWE with Surplus. One house seller. Payouts go to the signed-in Privy wallet.
 
 ## Install
+
+Pin the installer. This workflow handles provider API keys and cash-out rails.
 
 ```bash
 npm exec --package=skills@1.5.23 -- skills add galleonlabs/sell-unused-tokens -g -y
@@ -24,7 +26,7 @@ This repo is the skill folder. Copy it to:
 ~/.cursor/skills/sell-unused-tokens
 ```
 
-Pin the `skills` installer. This workflow handles provider API keys and cash-out rails; do not resolve `npx skills` unpinned.
+Do not resolve `npx skills` unpinned.
 
 The `validate` GitHub Actions workflow gates this repo: installability, link health, payload disclosure, installer pin freshness. It runs on every pull request and every push to `main`. Run it locally with `bash scripts/validate.sh`. A passing merge to `main` is the release.
 
@@ -36,7 +38,9 @@ The `validate` GitHub Actions workflow gates this repo: installability, link hea
 4. Lists recommended text models, one per request, floored at the cost basis.
 5. Points at `/sell` for live listings and `/cash-out` for Create / Orders / Send.
 
-Raw instructions: [`SKILL.md`](./SKILL.md).
+Worked loop: leftover OpenRouter credits → `/start` → one text model at Leftover 0.05× → listing live on `/sell` → cash out via Revolut or, after Verify, Venmo.
+
+Raw instructions: [`SKILL.md`](./SKILL.md). Probe and rail failures: [`references/troubleshooting.md`](./references/troubleshooting.md). Pricing and payout mechanics: [`references/invariants.md`](./references/invariants.md).
 
 ## Security
 
@@ -56,7 +60,7 @@ Listing is free. Earnings accrue per request; Surplus batches USDC to the signed
 
 ## Compatibility
 
-Works in Claude Code, Codex, Cursor, and any client that loads [Agent Skills](https://agentskills.io/specification). Needs network access to tokensto.cash and a browser for the user to sign in.
+Works in Claude Code, Codex, Cursor, and any client that loads [Agent Skills](https://agentskills.io/specification). Needs network access to tokensto.cash and a browser for the user to sign in. Not an MCP server.
 
 ## License
 
