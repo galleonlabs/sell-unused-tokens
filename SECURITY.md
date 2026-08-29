@@ -4,9 +4,9 @@ This repository is a procedure skill. The workflow is browser and prose only: no
 
 ## What the install copies
 
-Installing copies the repository folder, so the maintainer's CI check `scripts/validate.sh` lands in your skills directory next to `SKILL.md`. The skill never invokes it and you never need to run it. It takes no input, touches no credential, and only checks installability, link health, and the installer pin against public URLs and the npm registry. It is the only executable this package ships.
+Installing copies the repository folder, so the maintainer's CI check `scripts/validate.sh` lands in your skills directory next to `SKILL.md`. The skill never invokes it and you never need to run it. It takes no input, touches no credential, and only checks installability, link health, payload disclosure, and the installer pin against public URLs, the repository's own tracked files, and the npm registry. It is the only executable this package ships.
 
-`scripts/payload-executables.txt` declares that set, and the `validate` workflow fails if an undeclared executable appears or if this file stops naming one. The claim above cannot drift without breaking the required check.
+`scripts/payload-executables.txt` declares that set, and the `validate` workflow fails if an undeclared executable appears or if this file stops naming one. The workflow runs on every pull request and every push to `main`, so drift in the claim above surfaces as a failed check on the commit that caused it. `main` carries no branch protection, so the check reports drift rather than blocking it: read the check before you trust the claim.
 
 ## Provider keys
 

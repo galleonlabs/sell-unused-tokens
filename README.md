@@ -26,7 +26,7 @@ This repo is the skill folder. Copy it to:
 
 Pin the `skills` installer. This workflow handles provider API keys and cash-out rails; do not resolve `npx skills` unpinned.
 
-The required check on `main` is the `validate` GitHub Actions workflow (installability, link health, installer pin freshness). Run it locally with `bash scripts/validate.sh`. A passing merge to `main` is the release.
+The `validate` GitHub Actions workflow gates this repo: installability, link health, payload disclosure, installer pin freshness. It runs on every pull request and every push to `main`. Run it locally with `bash scripts/validate.sh`. A passing merge to `main` is the release.
 
 ## What the agent does
 
