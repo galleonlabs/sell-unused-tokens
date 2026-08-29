@@ -2,7 +2,7 @@
 
 Agent skill for [tokensto.cash](https://tokensto.cash): list leftover LLM API credits, earn USDC per request, receive batched payouts on Base, cash out to fiat.
 
-[tokensto.cash](https://tokensto.cash) · [Skill page](https://tokensto.cash/skills/sell-unused-tokens) · [Spec](https://agentskills.io/specification)
+[tokensto.cash](https://tokensto.cash) · [Skill page](https://tokensto.cash/skills/sell-unused-tokens) · [skills.sh](https://www.skills.sh/galleonlabs/sell-unused-tokens) · [agentskill.sh](https://agentskill.sh/@adwilkinson/sell-unused-tokens) · [Spec](https://agentskills.io/specification)
 
 ![tokensto.cash — sell spare AI tokens for cash](https://tokensto.cash/og.png)
 
