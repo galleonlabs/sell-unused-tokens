@@ -5,7 +5,7 @@ license: MIT
 compatibility: Requires a browser and a tokensto.cash account (Privy wallet). Network access to https://tokensto.cash. The procedure runs no local scripts.
 metadata:
   author: Galleon Labs
-  version: "1.3.0"
+  version: "1.4.0"
   homepage: https://tokensto.cash
 ---
 
@@ -31,12 +31,12 @@ Done when the models appear on `/sell` as live (or cooling), and the user knows 
 3. Pick the provider that owns the leftover credits. Featured: Venice, Capminal, OpenRouter, OpenAI, Anthropic, Gemini, DeepSeek, Groq, Mistral. More sits behind "More". Capminal daily $CAPU credit is **Included**. Use **Other** only for a URL Surplus already supports; OpenAI compatibility alone is not enough.
 4. Paste the key into the field. **Never echo, log, commit, or store it.** Surplus probes it and keeps it encrypted per listing. tokensto.cash does not persist keys.
 5. Wait for the probe. Evidence: a model list with market rows. If it 504s, retry once; Surplus timeouts surface as a clear message.
-6. Keep the recommended text models unless the user named others. Client lists **one model per request** so the ticks stay honest.
-7. Set cost basis, then a daily cap (≥ $0.5):
+6. The model the key just passed is preselected; the rest are ranked by recent demand. Keep that set unless the user named others. Client lists **one model per request** so the ticks stay honest.
+7. Set cost basis:
    - **Included** (subscription/stake) — floor 0.02×
    - **Leftover** (credits sitting idle) — floor 0.05×
    - **At cost** (pay-as-you-go) — floor 1.0×, never below list
-   Optional leftover hours (e.g. 11:00 PM–8:00 AM) if their own apps need the key during the day.
+   Then one daily key budget (≥ $0.5), shared across every selected model rather than set per model. Optional leftover hours (e.g. 11:00 PM–8:00 AM) if their own apps need the key during the day.
 8. Submit. Evidence: each selected model ticks ok, then `/sell` shows the listings. Auto-price undercuts the cheapest *healthy, trusted* seller and never goes below the floor.
 
 ## Cash out
@@ -46,6 +46,7 @@ Done when the models appear on `/sell` as live (or cooling), and the user knows 
 - Direct rails: **Revolut, Monzo, Chime, Zelle**.
 - **Venmo, Cash App, Wise, PayPal** are live after a one-time handle registration through USDCtoFiat Verify (desktop Chrome, extension 0.2.1+). Do not skip that handshake.
 - Mercado Pago stays out.
+- Default minimum is $1 per cash-out. Below that, tell the user to let earnings accrue.
 - Orders close with a full withdraw only. No top-up.
 - Send is Base USDC to an address.
 - Sell and cash out with no tokensto.cash fees. Send costs 0.5% of the amount entered; the recipient receives the rest.

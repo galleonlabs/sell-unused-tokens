@@ -18,6 +18,8 @@ The repricer keeps each listing just under the cheapest healthy, trusted competi
 
 Client posts one model at a time. Server accepts 1–8. Always read the live book before create.
 
+The daily budget is per key, not per model: every model selected for that key draws on the same allowance.
+
 ## Money
 
 `payout_address` is always the signed-in Privy wallet. Earnings accrue per request; Surplus batches USDC payouts on Base at $5 or after 72 hours.
@@ -26,7 +28,7 @@ Accrued and in-flight earnings come from Surplus's per-recipient payout snapshot
 
 Cash-out: Revolut, Monzo, Chime, Zelle direct. Venmo, Cash App, Wise, PayPal after a one-time in-app Verify registration (`useVerifyRegistration`, `@usdctofiat/offramp/extension`, extension 0.2.1+). Same handshake as usdctofiat.xyz. Mercado Pago stays out.
 
-Deposits on Orders are one-off: full withdraw, never top-up. Send is Base USDC.
+Deposits on Orders are one-off: full withdraw, never top-up. Send is Base USDC. Cash-out has a default $1 minimum.
 
 There is no tokensto.cash fee to list or cash out. A fee-bearing Send transfers the destination amount and 0.5% Galleon fee in one atomic wallet batch. The fee rounds down to USDC precision.
 

@@ -32,7 +32,7 @@ Never echo the key while debugging.
 | winning | Currently cheapest healthy trusted | None |
 | backing off | Surplus marked it unhealthy; no traffic until retry | Wait. Replace the key only if it was revoked, exhausted, or will keep failing. |
 | retrying | Health retry in flight | Wait |
-| paused | Daily cap ≈ 0, or leftover hours are off | Resume from the dashboard, or wait until the leftover start time |
+| paused | Daily key budget ≈ 0, or leftover hours are off | Resume from the dashboard, or wait until the leftover start time. The budget is shared across the key's models, so one busy model can pause the rest |
 | syncing | House book not settled yet | Refresh `/sell` |
 
 DELETE only flips an offer to inactive. Relisting the same key and model can return the same offer. Delete before relisting a model the user still lists.
@@ -43,6 +43,7 @@ DELETE only flips an offer to inactive. Relisting the same key and model can ret
 |---|---|
 | Venmo / Cash App / Wise / PayPal blocked | Desktop Chrome with USDCtoFiat Verify extension 0.2.1+. Run the in-app handshake. Do not skip it. |
 | Wise / PayPal attestation | Bound to the active Privy wallet. `callerAddress` is that wallet. |
+| Cash out will not accept the amount | Default minimum is $1. Let earnings accrue rather than splitting an order. |
 | Mercado Pago | Out. Do not offer it. |
 | Want to add funds to an existing order | No top-up. Close with a full withdraw, then create a new order. |
 | Inbound USDC that is not earnings | Other inbound is balance. Received earnings are Surplus relayer transfers only. |

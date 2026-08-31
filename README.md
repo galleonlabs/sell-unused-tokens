@@ -53,7 +53,7 @@ Read [SECURITY.md](./SECURITY.md).
 - Direct: Revolut, Monzo, Chime, Zelle.
 - After a one-time USDCtoFiat Verify registration (desktop Chrome, extension 0.2.1+): Venmo, Cash App, Wise, PayPal.
 - Mercado Pago stays out.
-- Orders close with a full withdraw. No top-up.
+- Default minimum is $1 per cash-out. Orders close with a full withdraw. No top-up.
 - Send is Base USDC. Sell and cash out have no tokensto.cash fee; Send costs 0.5% of the amount entered.
 
 Listing is free. Earnings accrue per request; Surplus batches USDC to the signed-in wallet at $5 or after 72 hours. Cash-out, tax, and provider-account risk stay with the user.
