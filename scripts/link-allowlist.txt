@@ -1,2 +1,6 @@
 # URLs that legitimately reject automated clients. One exact URL per line.
 # Lines starting with # are ignored.
+
+# Not an allowlist entry: agentskill.sh serves Cloudflare "no available server"
+# (503) for the whole domain, so the listing is down, not bot-hostile. The README
+# link was dropped rather than allowlisted. Re-link only once the origin answers.
