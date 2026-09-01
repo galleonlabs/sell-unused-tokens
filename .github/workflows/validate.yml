@@ -5,6 +5,11 @@ on:
     branches: [main]
   pull_request:
     branches: [main]
+  # Link health depends on live tokensto.cash URLs, which can break with no commit
+  # here. Re-check daily so that drift surfaces on its own.
+  schedule:
+    - cron: "0 7 * * *"
+  workflow_dispatch:
 
 permissions:
   contents: read
