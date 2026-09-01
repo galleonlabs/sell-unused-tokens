@@ -4,7 +4,7 @@ Agent skill for [tokensto.cash](https://tokensto.cash): list leftover LLM API cr
 
 [tokensto.cash](https://tokensto.cash) · [Skill page](https://tokensto.cash/skills/sell-unused-tokens) · [skills.sh](https://www.skills.sh/galleonlabs/sell-unused-tokens) · [agentskill.sh](https://agentskill.sh/@adwilkinson/sell-unused-tokens) · [Spec](https://agentskills.io/specification)
 
-![tokensto.cash — sell spare AI tokens for cash](https://tokensto.cash/og.png)
+![tokensto.cash — sell your spare AI tokens for cash](https://tokensto.cash/og-tokenstocash-21b462ab3ed0.png)
 
 Prepaid and included LLM allowances expire unused. This skill walks Claude, Codex, Cursor, or any [Agent Skills](https://agentskills.io) client through listing that capacity on [Surplus Intelligence](https://www.surplusintelligence.ai) through tokensto.cash.
 
@@ -28,7 +28,7 @@ This repo is the skill folder. Copy it to:
 
 Do not resolve `npx skills` unpinned.
 
-The `validate` GitHub Actions workflow gates this repo: installability, link health, payload disclosure, installer pin freshness. It runs on every pull request and every push to `main`. Run it locally with `bash scripts/validate.sh`. A passing merge to `main` is the release.
+The `validate` GitHub Actions workflow gates this repo: installability, link health, payload disclosure, installer pin freshness. It runs on every pull request, every push to `main`, and daily on a schedule so live-site drift surfaces without waiting for a commit. Run it locally with `bash scripts/validate.sh`. A passing merge to `main` is the release.
 
 ## What the agent does
 
