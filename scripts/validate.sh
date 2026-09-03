@@ -168,11 +168,11 @@ sys.exit(1 if failed else 0)
 PY
 }
 
-payload() {
-  python3 - <<'PY'
+# Shared so payload() and its self-test run identical logic in different trees.
+PAYLOAD_PY=$(cat <<'PY'
 import subprocess
 import sys
-from pathlib import Path
+from pathlib import Path, PurePosixPath
 
 ALLOWLIST = Path("scripts/payload-executables.txt")
 DISCLOSURE = Path("SECURITY.md")
@@ -190,10 +190,21 @@ def declared() -> set[str]:
     return paths
 
 
+# Suffixes that carry executable code even at mode 0644 with no shebang.
+# `bash x.sh` and `python3 x.py` ignore the exec bit, so mode and shebang alone
+# let a runnable file ship undeclared.
+EXECUTABLE_SUFFIXES = {
+    ".sh", ".bash", ".zsh", ".fish", ".ps1", ".psm1", ".bat", ".cmd",
+    ".py", ".rb", ".pl", ".php", ".lua", ".js", ".mjs", ".cjs",
+    ".com", ".exe", ".so", ".dylib", ".dll",
+}
+
+
 def shipped() -> set[str]:
     """Files an install copies onto a user's machine that carry executable code.
     The installer copies the repository folder minus .git, so the tracked set is
-    the payload."""
+    the payload. A file counts on any of three signals: a script or binary
+    suffix, the exec bit, or a shebang."""
     listing = subprocess.run(
         ["git", "ls-files", "-s"],
         check=True,
@@ -205,6 +216,11 @@ def shipped() -> set[str]:
     for row in listing:
         meta, path = row.split("\t", 1)
         mode = meta.split()[0]
+        # Suffix first, so it also covers a symlink: `scripts/x.sh -> /bin/sh`
+        # still lands in the skills directory as something a user can run.
+        if PurePosixPath(path).suffix.lower() in EXECUTABLE_SUFFIXES:
+            found.add(path)
+            continue
         if mode == "120000":
             continue
         if mode == "100755":
@@ -246,6 +262,45 @@ for path in sorted(allowed & actual):
 print(f"payload carries {len(actual)} executable file(s); every one must be declared and disclosed")
 sys.exit(1 if failed else 0)
 PY
+)
+
+payload() {
+  echo "Payload: every shipped executable is declared and disclosed"
+  python3 -c "$PAYLOAD_PY"
+
+  echo "Payload: an undeclared executable must fail"
+  payload_selftest
+}
+
+# Guards the check itself. Mode and shebang alone passed a 0644 no-shebang
+# script, so the repository shipped a runnable file the allowlist never named.
+payload_selftest() {
+  local fixture output status
+  fixture=$(mktemp -d)
+  mkdir -p "$fixture/scripts"
+  cp scripts/payload-executables.txt "$fixture/scripts/payload-executables.txt"
+  cp scripts/validate.sh "$fixture/scripts/validate.sh"
+  cp SECURITY.md "$fixture/SECURITY.md"
+  printf 'echo undeclared\n' >"$fixture/scripts/undeclared.sh"
+  chmod 644 "$fixture/scripts/undeclared.sh"
+  git -C "$fixture" -c init.defaultBranch=main init -q
+  git -C "$fixture" add -A
+
+  set +e
+  output=$( (cd "$fixture" && python3 -c "$PAYLOAD_PY") 2>&1 )
+  status=$?
+  set -e
+  rm -rf "$fixture"
+
+  printf '%s\n' "$output"
+  if [[ $status -eq 0 ]]; then
+    echo "expected the payload check to reject scripts/undeclared.sh" >&2
+    exit 1
+  fi
+  if ! grep -q 'scripts/undeclared.sh ships executable code' <<<"$output"; then
+    echo "payload check failed for an unexpected reason" >&2
+    exit 1
+  fi
 }
 
 pin_freshness() {
